@@ -4,18 +4,14 @@
 #include <string>
 #include <conio.h>
 #include <iostream>
+#include <Point.h>
 
 using namespace std;
 
-struct point
-{
-	int posX;
-	int posY;
-};
 
 class BattleField;
 
-class Hero 
+class Hero
 {
 public:
 	Hero( );
@@ -28,33 +24,18 @@ public:
 	void down();
 	void left();
 	void right();
+	int getX();
+	int getY();
+	point getLoc();
 private:
 	string name;
 	int luck, strength, magic, skillpoints;
 	point tempBack, location;
 	bool hp, moved;
 	BattleField* pole;
-	void move(Hero char1,int x, int y);
+	void move(int x, int y);
 	void back();
-	bool useTrigger()
-	{
-		while (1)
-		{
-			cout << "Use trigger?";
-			int input = _getch();
-			switch (input)
-			{
-			case 121:
-				// u do shit
-				return true;
-			case 110:
-				return false;
-			}
-			if (input == 121 || input == 110) break;
-			cout << "(y/n)\n";
-		}
-		return false;
-	}
+	bool useTrigger();
 };
 
 #endif // !HERO_H

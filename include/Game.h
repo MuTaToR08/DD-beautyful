@@ -1,6 +1,6 @@
 #pragma once
 #include "Hero.h"
-#include "battlefield.h"
+#include "BattleField.h"
 
 class Game
 {
@@ -10,4 +10,5 @@ private :
 public :
 	void init();
 	void tutorial(Hero*& char1);
+	void midgame();
 };

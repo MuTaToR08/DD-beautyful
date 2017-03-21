@@ -1,20 +1,15 @@
-#include "Game.h"
-#include "battlefield.h"
-#include "Hero.h"
+#include <Game.h>
+#include <BattleField.h>
+#include <Hero.h>
 
 void Game::init()
 {
-
-	{
-		//int button1 = _getch();
-		//cout << "1: " << (int)button1;
 		GamePole = new BattleField();
 		Player = new Hero();
 		Player->setPole(GamePole);
 		GamePole->addPlayer(Player);
 		tutorial(Player);
-		//midgame(char1);
-	}
+		midgame();
 }
 
 void Game::tutorial(Hero *& char1)
@@ -55,4 +50,65 @@ void Game::tutorial(Hero *& char1)
 		cout << "(y/n)\n";
 	}
 	char1->stat();
+}
+
+void Game::midgame()
+{
+	system("cls");
+	cout << "Out story began, when you got stacked in a strange hallway\n";
+	cout << "Well, probably you have to find an exit first, looks simple\n\n";
+	int index1 = 0, index2 = 0;
+	int input;
+	while (1)
+	{
+		cout << "where?\n";
+		input = _getch();
+		switch (input)
+		{
+		case 72: // вверх
+			if (index1 > 0)
+				Player->up();
+			break;
+		case 80: //влево
+			if (index1 < SIZE - 1)
+				Player->down();
+			break;
+		case 75: //вниз
+			if (index2 > 0)
+				Player->left();
+			break;
+		case 77: //вправо
+			Player->right();
+			break;
+		/*case 115:
+		{
+			char1->stat();
+			system("pause");
+			break;
+		}
+		case 104:
+		{
+			char1->rules();
+			system("pause");
+			break;
+		}
+		case 99:
+		{
+			arena.commands();
+			system("pause");
+			break;
+		}
+		case 109:
+		{
+			arena.minimap();
+			system("pause");
+			break;
+		}*/
+		}
+		system("cls");
+		GamePole->showfield();
+		cout << Player->getX() << Player->getX();
+		point k =  Player->getLoc();
+		cout << k.posX << k.posY;
+	}
 }

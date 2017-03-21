@@ -1,4 +1,5 @@
-#include "battlefield.h"
+#include <BattleField.h>
+#include <Hero.h>
 #include <iostream>
 #include <conio.h>
 
@@ -10,9 +11,8 @@ BattleField::BattleField()
 		for (int j = 0; j < SIZE; j++)
 			field[i][j] = '0';
 		
-	field[0][0] = 's';
+	field[0][0] = 'X';
 }
-
 BattleField& BattleField::operator=(BattleField& bf)
 {
 	for (int i = 0; i < SIZE; i++)
@@ -23,7 +23,7 @@ BattleField& BattleField::operator=(BattleField& bf)
 bool BattleField::checkroom(int index1, int index2)
 {
 	bool r = 1;
-	if (index1 < 0 || index1 >SIZE)
+	if (index1 < 0 || index1 > SIZE)
 		r = 0;
 	if (index2 < 0 || index2 > SIZE)
 		r = 0;
@@ -38,9 +38,9 @@ void BattleField::showfield()
 		std::cout << "\n";
 	}
 }
-void BattleField::setroom(int index1, int index2)
+/*void BattleField::setroom(int index1, int index2)
 {
-	this->field[index1][index2] = 's';
+	this->field[index1][index2] = '';
 }
 void BattleField::delroom(int index1, int index2)
 {
@@ -49,10 +49,13 @@ void BattleField::delroom(int index1, int index2)
 void BattleField::setpos(int index1, int index2)
 {
 	this->field[index1][index2] = '1';
-}
+}*/
 void BattleField::MoveHero()
 {
-//	int a;
+	int a = players->getX();
+	int b = players->getY();
+	this->field[a][b] = 'N';
+	this->showfield();	
 }
 void BattleField::rules()
 {
@@ -79,5 +82,10 @@ void BattleField::addPlayer(Hero * player)
 }
 void BattleField::BackMoveHero()
 {
-//	int a;
+
+	this->showfield();
+}
+void BattleField::trigger()
+{
+
 }
