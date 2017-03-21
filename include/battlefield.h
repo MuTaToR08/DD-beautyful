@@ -1,5 +1,5 @@
-#ifndef BATTLEFIELD_H
-#define BATTLEFIELD_H
+#pragma once
+
 #define SIZE 6
 
 class Hero;
@@ -11,41 +11,16 @@ private:
 	Hero* players;
 public:
 	BattleField();
-	BattleField& BattleField::operator=(BattleField& bf);
-
-	bool checkroom(int index1, int index2);
+	BattleField& BattleField::operator=(BattleField&);
+	bool checkRoom(int, int);
 	void showfield();
-	void setroom(int index1, int index2);
-	void delroom(int index1, int index2);
-	void setpos(int index1, int index2);
 	void MoveHero();
 	void BackMoveHero();
 	void rules();
 	void commands();
 	void minimap();
 	void addPlayer(Hero*);
+	void trigger();
+	bool checkTrigger();
+	bool checkTrigger(int, int);
 };
-/*
-
-class BattleField
-{
-	BattleField() {};
-	
-private:
-	char field[SIZE][SIZE];
-public:
-	//battlefield& battlefield::operator=(battlefield& bf);
-	BattleField();
-	bool checkroom(int index1, int index2);
-	void showfield();
-	void setroom(int index1, int index2);
-	void delroom(int index1, int index2);
-	void setpos(int index1, int index2);
-	void MoveHero();
-	void BackMoveHero();
-	void rules();
-	void commands();
-	void minimap();//
-};
-*/
-#endif

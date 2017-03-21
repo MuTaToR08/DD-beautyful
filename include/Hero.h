@@ -1,60 +1,37 @@
-#ifndef HERO_H
-#define HERO_H
+#pragma once
 
 #include <string>
 #include <conio.h>
 #include <iostream>
+#include "Point.h"
 
 using namespace std;
-
-struct point
-{
-	int posX;
-	int posY;
-};
-
 class BattleField;
 
-class Hero 
+class Hero
 {
 public:
-	Hero( );
+	Hero();
 	void random();
 	void self();
 	void stat();
-	void changename(string);
+	void changeName(string);
 	void setPole(BattleField*);
 	void up();
 	void down();
 	void left();
 	void right();
+	int getX();
+	int getY();
+	int getLX();
+	int getLY();
 private:
 	string name;
 	int luck, strength, magic, skillpoints;
 	point tempBack, location;
 	bool hp, moved;
 	BattleField* pole;
-	void move(Hero char1,int x, int y);
+	void move(int x, int y);
 	void back();
-	bool useTrigger()
-	{
-		while (1)
-		{
-			cout << "Use trigger?";
-			int input = _getch();
-			switch (input)
-			{
-			case 121:
-				// u do shit
-				return true;
-			case 110:
-				return false;
-			}
-			if (input == 121 || input == 110) break;
-			cout << "(y/n)\n";
-		}
-		return false;
-	}
+	bool useTrigger();
 };
-
-#endif // !HERO_H
