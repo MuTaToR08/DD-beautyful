@@ -1,21 +1,16 @@
-#include "../include/Hero.h"
+#include "Hero.h"
+#include "BattleField.h"
+
 #include <iostream>
 #include <ctime>
 #include <conio.h>
-#include "../include/BattleField.h"
+
 using namespace std;
 
-//INITIALISATION
+Hero::Hero() :name(""), strength(0), magic(0),
+luck(0), skillpoints(10), hp(true)
+{}
 
-Hero::Hero()
-{
-	name = ("");
-	strength = 0;
-	magic = 0;
-	luck = 0;
-	skillpoints = 10;
-	hp = true;
-}
 void Hero::setPole(BattleField * pbatle)
 {
 	pole = pbatle;
@@ -23,66 +18,79 @@ void Hero::setPole(BattleField * pbatle)
 
 
 //TUTORIAL
-
-void Hero::changename(string a)
+void Hero::changeName(string a)
 {
 	this->name = a;
 }
+
 void Hero::random()
 {
 	system("cls");
 	srand((unsigned int)time(NULL));
+
 	int tmp;
-	while(0 < this->skillpoints)
+
+	while (0 < this->skillpoints)
 	{
 		tmp = rand() % 3;
 		switch (tmp)
 		{
-			case 0:
-				this->strength += 1;
-				break;
-			case 1:
-				this->magic += 1;
-				break;
-			case 2:
-				this->luck += 1;
-				break;
+		case 0:
+			this->strength += 1;
+			break;
+		case 1:
+			this->magic += 1;
+			break;
+		case 2:
+			this->luck += 1;
+			break;
 		}
 		skillpoints--;
 	}
 }
+
 void Hero::self()
 {
-	cout << "Now you have "<< skillpoints <<" skillpoints\n";
+
 	while (0 < this->skillpoints)
 	{
-		cout << "Enter the number to upgrade your skill:\ns is for strength, l is for luck, m is for magic\n\n";
-		cout << "Ok, now you have:\n" << strength << " strength\n" << magic << " magic\n" << luck << " luck\nSkillpoints left:" << skillpoints << "\n\n";
+		system("cls");
+		cout << "Now you have " << skillpoints << " skillpoints" << endl;
+
+		cout << "Enter the number to upgrade your skill:" << endl
+			 << "s is for strength, l is for luck, m is for magic" << endl << endl;
+		cout << "Ok, now you have:" << endl 
+			 << strength << " strength" << endl 
+			 << magic << " magic" << endl
+			 << luck << " luck" << endl 
+			 << "Skillpoints left:" << skillpoints << endl << endl;
+
 		int input;
 		input = _getch();
 		switch (input)
-			{
-			case 115:
-				this->strength += 1;
-				break;
-			case 109:
-				this->magic += 1;
-				break;
-			case 108:
-				this->luck += 1;
-				break;
-			default:
-				skillpoints++;
-			}
-			skillpoints--;
-			system("cls");
-		system("cls");
+		{
+		case 115:
+			this->strength += 1;
+			break;
+		case 109:
+			this->magic += 1;
+			break;
+		case 108:
+			this->luck += 1;
+			break;
+		default:
+			continue;
+		}
+		skillpoints--;
 	}
-	cout << "Distribution of skill points has been done perfectly!\n";
+
+	cout << "Distribution of skill points has been done perfectly!"<<endl;
 }
+
 bool Hero::useTrigger()
 {
 	bool flag;
+
 	while (1)
 	{
 		cout << "Use trigger?";
@@ -90,82 +98,91 @@ bool Hero::useTrigger()
 		switch (input)
 		{
 		case 121:
-			// u do shit
-			flag = true;
-			break;
+			return true;
 		case 110:
-			flag = false;
+			return false;
 		}
-		if (input == 121 || input == 110) break;
 		cout << "(y/n)\n";
 	}
-	return flag;
+	return false;
 }
 
 //MOVE ACTIONS
-
 void Hero::move(int x, int y)
 {
-	if (!this->pole->checkroom(x, y))
+	if (!this->pole->checkRoom(x, y))
 		return;
+
 	moved = true;
 	tempBack = location;
 	location.posX = x;
 	location.posY = y;
+	
+	bool checkedTriger = this->pole->checkTrigger();
 	this->pole->MoveHero();
-	/*if (this->useTrigger())
-	{
-		this->pole->trigger();
-	}
-	else
-	{
-	location = tempBack;
-		this->back();
-	}*/
+	
+	if (checkedTriger)
+		if (this->useTrigger())
+		{
+			this->pole->trigger();
+		}
+		else
+		{
+			this->back();
+			location = tempBack;
+		}
+
 	moved = false;
 }
-void Hero::up() 
+
+void Hero::up()
 {
-	int tmp1 = this->location.posX - 1;
-	move(tmp1,this->location.posY);
+	move(this->location.posX - 1, this->location.posY);
 }
-void Hero::down() 
+
+void Hero::down()
 {
-	int tmp1 = this->location.posX + 1;
-	move(tmp1, this->location.posY);
+	move(this->location.posX + 1, this->location.posY);
 }
+
 void Hero::left()
 {
-	int tmp1 = this->location.posY - 1;
-	move(this->location.posX, tmp1);
+	move(this->location.posX, this->location.posY - 1);
 }
+
 void Hero::right()
 {
-	int tmp1 = this->location.posY + 1;
-	move(this->location.posX, tmp1);
+	move(this->location.posX, this->location.posY + 1);
 }
+
 void Hero::back()
 {
-	
 	if (moved)
 		this->pole->BackMoveHero();
 }
 
-//SHOW OFF
-
+/*SHOW OFF*/
 void Hero::stat()
 {
 	cout << "Hello, " << this->name << "\nNow you have:\n" << "Strength: " << this->strength << "\nMagic: " << this->magic << "\nLuck: " << this->luck << "\n\n";
 }
+
 int Hero::getX()
 {
 	return this->location.posX;
 }
+
 int Hero::getY()
 {
 	return this->location.posY;
 }
-point Hero::getLoc()
+
+int Hero::getLX()
 {
-	return this->location;
+	return this->tempBack.posX;
+}
+
+int Hero::getLY()
+{
+	return this->tempBack.posY;
 }

@@ -24,7 +24,7 @@
     <ClInclude Include="..\..\..\include\battlefield.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Point.h">
+    <ClInclude Include="..\..\..\include\Point.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

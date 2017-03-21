@@ -1,6 +1,5 @@
 #pragma once
 
-
 struct point
 {
 	int posX;

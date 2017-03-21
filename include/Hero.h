@@ -1,24 +1,21 @@
-#ifndef HERO_H
-#define HERO_H
+#pragma once
 
 #include <string>
 #include <conio.h>
 #include <iostream>
-#include <Point.h>
+#include "Point.h"
 
 using namespace std;
-
-
 class BattleField;
 
 class Hero
 {
 public:
-	Hero( );
+	Hero();
 	void random();
 	void self();
 	void stat();
-	void changename(string);
+	void changeName(string);
 	void setPole(BattleField*);
 	void up();
 	void down();
@@ -26,7 +23,8 @@ public:
 	void right();
 	int getX();
 	int getY();
-	point getLoc();
+	int getLX();
+	int getLY();
 private:
 	string name;
 	int luck, strength, magic, skillpoints;
@@ -37,5 +35,3 @@ private:
 	void back();
 	bool useTrigger();
 };
-
-#endif // !HERO_H
